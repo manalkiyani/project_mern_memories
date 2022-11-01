@@ -13,6 +13,14 @@ app.use(bodyParser.urlencoded({ limit: '30mb', extended: true }))
 app.use(cors());
 
 app.use('/posts', postRoutes);
+app.get('/', (req, res) => {
+    res.send('Hello to memories API')
+})
+const root = require('path').join(__dirname,'client','build')
+app.use(express.static(root));
+app.get('*',(req,res)=>{
+  res.sendFile('index.html',{root})
+})
 
 const CONNECTION_URL = 'mongodb+srv://root:root@cluster0.xuevxzg.mongodb.net/test';
 const PORT = process.env.PORT|| 5000;
